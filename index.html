@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Stream | Modern Dynamic</title>
     
-    
     <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
     <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
 
@@ -21,7 +20,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg-dark); color: var(--text-light); }
 
-        /* 👑 Modern Navbar with Logo Setup */
+        /* 👑 Modern Navbar */
         .nav-bar { 
             padding: 15px 20px; 
             display: flex; 
@@ -43,12 +42,11 @@
         .logo { font-size: 22px; font-weight: 800; letter-spacing: -1px; }
         .logo span { color: var(--accent); }
         
-        /* 📸 ImgBB Logo Styling */
         .site-logo-img {
             width: 35px;
             height: 35px;
             object-fit: cover;
-            border-radius: 50%; /* ပုံလေးကို အဝိုင်းစတိုင်လ် ဖမ်းထားပါတယ် */
+            border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
@@ -79,9 +77,19 @@
         .details { padding: 12px; }
         .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-        /* Video Player Panel */
+        /* 🔒 Fixed Video Player Panel (အောက်ဆွဲချရင် ငြိမ်နေအောင် လုပ်ထားသည့်အပိုင်း) */
         #theater { 
-            display: none; padding: 20px; background: var(--bg-dark); border-bottom: 1px solid var(--card-glass);
+            display: none; 
+            padding: 20px; 
+            background: var(--bg-dark); 
+            border-bottom: 1px solid var(--card-glass);
+            position: fixed; /* Fixed ပြောင်းလိုက်လို့ အပေါ်မှာပဲ ငြိမ်နေပါမယ် */
+            top: 66px; /* Navbar ရဲ့အောက်ကနေ ကပ်ပြီး ပေါ်ပါမယ် */
+            left: 0;
+            width: 100%;
+            max-height: calc(100vh - 66px);
+            overflow-y: auto; /* ဗီဒီယို Panel ထဲက စာသားတွေရှည်ရင် ၎င်းထဲမှာတင် Scroll ဆွဲနိုင်ပါတယ် */
+            z-index: 999;
         }
         .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; position: relative; }
         
@@ -150,20 +158,23 @@
         }
 
         .loader { display: block; text-align: center; padding: 20px; color: var(--accent); font-weight: bold; }
+        
+        /* Player ပွင့်နေချိန် အောက်က ဗီဒီယိုတွေကို အပေါ်ကနေ နေရာချန်ပေးဖို့ သုံးပါတယ် */
+        .theater-open-padding {
+            padding-top: 0px;
+            transition: padding 0.3s ease;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar -->
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
             <div class="logo">BURMESE<span>RELAX</span></div>
-            <!-- 📸 အစ်ကို့ရဲ့ ImgBB Logo လင့်ခ်ကို တိုက်ရိုက်ချိတ်ဆက်ပေးထားပါတယ်ဗျာ -->
             <img class="site-logo-img" src="https://i.ibb.co/prdxhDS4/d6719cb17570cf605695f50cc1c25c86.jpg" alt="Logo">
         </div>
     </div>
 
-    <!-- Video Theater Box -->
     <div id="theater">
         <div class="back-btn" onclick="closePlayer()">← နောက်သို့ ပြန်သွားရန်</div>
         <div class="player">
@@ -182,12 +193,14 @@
         </div>
     </div>
 
-    <div class="search-area">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
-    </div>
+    <div id="mainContent" class="theater-open-padding">
+        <div class="search-area">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
+        </div>
 
-    <div class="video-grid" id="container"></div>
-    <div id="loadingStatus" class="loader" style="display:none;">Loading more videos...</div>
+        <div class="video-grid" id="container"></div>
+        <div id="loadingStatus" class="loader" style="display:none;">Loading more videos...</div>
+    </div>
 
     <script>
         const keywordsPool = ['myanmar', 'japan', 'asian', 'romance', 'college', 'sexy', 'leaked', 'amateur', 'solo'];
@@ -242,16 +255,28 @@
             }
         }
 
+        // ဗီဒီယို ဖွင့်လိုက်ချိန်
         function play(url, title) {
-            document.getElementById('theater').style.display = 'block';
+            const theater = document.getElementById('theater');
+            theater.style.display = 'block';
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
+            
+            // ဗီဒီယိုဖွင့်ရင် အပေါ်ဆုံးကို Scroll တစ်ချက်ဆွဲပေးပြီး အောက်က Content တွေကို ကွယ်မသွားအောင် နေရာဖယ်ပေးပါတယ်
             window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // မျက်နှာပြင် အရွယ်အစားအလိုက် အောက်က Grid ကို ပျောက်မသွားအောင် နေရာချန်ပေးတဲ့ စနစ်
+            setTimeout(() => {
+                let theaterHeight = theater.offsetHeight;
+                document.getElementById('mainContent').style.paddingTop = theaterHeight + 'px';
+            }, 100);
         }
 
+        // ဗီဒီယို ပိတ်လိုက်ချိန်
         function closePlayer() {
             document.getElementById('theater').style.display = 'none';
             document.getElementById('frame').src = '';
+            document.getElementById('mainContent').style.paddingTop = '0px'; // နေရာချန်ထားတာကို ပြန်ဖျက်ပါတယ်
         }
 
         function handleSearch(e) {
