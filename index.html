@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Stream | Modern</title>
+    <title>Premium Stream | Modern Dynamic</title>
+    
+    <!-- ⚠️ အစ်ကို့ရဲ့ Adsterra Scripts များကို ဒီနေရာမှာ ပြန်ထည့်နိုင်ပါတယ် -->
+    <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
+    <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
+
     <style>
         :root {
             --bg-dark: #0a0a0c;
@@ -17,7 +22,7 @@
 
         /* Modern Navbar */
         .nav-bar { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-glass); }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1px; cursor: pointer; }
         .logo span { color: var(--accent); }
 
         /* Search Section */
@@ -40,11 +45,12 @@
             overflow: hidden; 
             transition: transform 0.3s;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
         .video-item:hover { transform: translateY(-5px); border: 1px solid var(--accent); }
         .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
         .details { padding: 12px; }
-        .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; }
+        .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
         /* Video Player Panel */
         #theater { 
@@ -53,74 +59,121 @@
         }
         .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; }
         
-        .btn-vip { background: var(--accent); padding: 10px 20px; border-radius: 20px; color: #fff; text-decoration: none; display: inline-block; margin-top: 10px; }
+        .btn-vip { background: var(--accent); padding: 10px 20px; border-radius: 20px; color: #fff; text-decoration: none; display: inline-block; margin-top: 10px; font-weight: bold; }
+        .loader { display: block; text-align: center; padding: 20px; color: var(--accent); font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="nav-bar">
-        <div class="logo">BURMESE<span>RELAX</span></div>
+        <div class="logo" onclick="refreshToRandom()">BURMESE<span>RELAX</span></div>
     </div>
 
     <div id="theater">
         <div class="player"><iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe></div>
-        <h2 style="margin-top:15px;" id="vTitle"></h2>
+        <h2 style="margin-top:15px; font-size: 16px;" id="vTitle"></h2>
         <a href="https://t.me/Dr_chatgyi1" class="btn-vip">🔥 VIP ACCESS</a>
     </div>
 
     <div class="search-area">
-        <input type="text" class="search-input" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
     </div>
 
     <div class="video-grid" id="container"></div>
+    <div id="loadingStatus" class="loader" style="display:none;">Loading more videos...</div>
 
     <script>
+        // ၁။ ဝင်လာတိုင်း မရိုးရအောင်လှည့်ပတ်မည့် Keywords စာရင်း
+        const keywordsPool = ['myanmar', 'japan', 'asian', 'romance', 'college', 'sexy', 'leaked', 'amateur', 'solo'];
+        
+        let query = '';
         let page = 1;
-        let query = 'myanmar';
+        let isLoading = false;
+
+        // ဆိုက်စဖွင့်တာနဲ့ ချက်ချင်း အလုပ်လုပ်မည့်နေရာ
+        window.onload = function() {
+            setRandomFeed();
+        };
+
+        // ၂။ Random ခေါင်းစဉ်နှင့် Page ကို ရွေးချယ်ပေးသည့်စနစ်
+        function setRandomFeed() {
+            // Pool ထဲက ခေါင်းစဉ်တစ်ခုကို Random နှိုက်မယ်
+            query = keywordsPool[Math.floor(Math.random() * keywordsPool.length)];
+            // Page 1 ကနေ 8 ကြိုက်တဲ့စာမျက်နှာကို ထီနှိုက်ပြီး စဖွင့်မယ် (ဒါမှ ဗီဒီယိုတွေ ထပ်မနေမှာပါ)
+            page = Math.floor(Math.random() * 8) + 1; 
+            
+            document.getElementById('container').innerHTML = '';
+            fetchVideos(page);
+        }
         
         async function fetchVideos(p) {
-            const res = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${query}&per_page=20&page=${p}`);
-            const data = await res.json();
-            const grid = document.getElementById('container');
-            
-            data.videos.forEach(v => {
-                const div = document.createElement('div');
-                div.className = 'video-item';
-                div.onclick = () => play(v.embed, v.title);
-                div.innerHTML = `
-                    <img src="${v.default_thumb.src}" class="thumb">
-                    <div class="details">
-                        <div class="title">${v.title}</div>
-                        <small style="opacity:0.6">${v.views} views</small>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
+            if (isLoading) return;
+            isLoading = true;
+            document.getElementById('loadingStatus').style.display = 'block';
+
+            try {
+                const res = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(query)}&per_page=20&page=${p}&thumbsize=big`);
+                const data = await res.json();
+                const grid = document.getElementById('container');
+                
+                if (data && data.videos && data.videos.length > 0) {
+                    data.videos.forEach(v => {
+                        const div = document.createElement('div');
+                        div.className = 'video-item';
+                        div.onclick = () => play(v.embed, v.title);
+                        div.innerHTML = `
+                            <img src="${v.default_thumb.src}" class="thumb" loading="lazy">
+                            <div class="details">
+                                <div class="title">${v.title}</div>
+                                <small style="opacity:0.6">👁️ ${parseInt(v.views).toLocaleString()} views</small>
+                            </div>
+                        `;
+                        grid.appendChild(div);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                document.getElementById('loadingStatus').style.display = 'none';
+                isLoading = false;
+            }
         }
 
         function play(url, title) {
             document.getElementById('theater').style.display = 'block';
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
-            window.scrollTo(0, 0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function handleSearch(e) {
             if(e.key === 'Enter') {
                 query = e.target.value;
-                page = 1;
+                page = 1; // ရှာဖွေရင်တော့ စာမျက်နှာ ၁ ကနေ ပြန်စမယ်
+                document.getElementById('theater').style.display = 'none';
+                document.getElementById('frame').src = '';
                 document.getElementById('container').innerHTML = '';
                 fetchVideos(page);
             }
         }
 
+        // ဘယ်ဘက်က Logo ကို နှိပ်ရင်လည်း နောက်ထပ် Random Content တွေချက်ချင်းပြောင်းပေးမယ်
+        function refreshToRandom() {
+            document.getElementById('theater').style.display = 'none';
+            document.getElementById('frame').src = '';
+            document.getElementById('searchInput').value = '';
+            setRandomFeed();
+        }
+
+        // ၃။ Infinite Scroll ဆွဲချရင် Page ဆက်တိုက်တိုးသွားမည့်စနစ်
         window.onscroll = () => {
-            if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-                page++; fetchVideos(page);
+            if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
+                if(!isLoading) {
+                    page++; 
+                    fetchVideos(page);
+                }
             }
         };
-
-        fetchVideos(page);
     </script>
 </body>
 </html>
