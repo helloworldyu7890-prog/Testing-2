@@ -21,10 +21,36 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg-dark); color: var(--text-light); }
 
-        /* Modern Navbar */
-        .nav-bar { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-glass); }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1px; cursor: pointer; }
+        /* 👑 Modern Navbar with Logo Setup */
+        .nav-bar { 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--card-glass); 
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .logo { font-size: 22px; font-weight: 800; letter-spacing: -1px; }
         .logo span { color: var(--accent); }
+        
+        /* 📸 ImgBB Logo Styling */
+        .site-logo-img {
+            width: 35px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 50%; /* ပုံလေးကို အဝိုင်းစတိုင်လ် ဖမ်းထားပါတယ် */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
         /* Search Section */
         .search-area { padding: 20px; }
@@ -55,8 +81,7 @@
 
         /* Video Player Panel */
         #theater { 
-            display: none; padding: 20px; position: sticky; top: 0; z-index: 100; 
-            background: var(--bg-dark); border-bottom: 1px solid var(--card-glass);
+            display: none; padding: 20px; background: var(--bg-dark); border-bottom: 1px solid var(--card-glass);
         }
         .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; position: relative; }
         
@@ -111,7 +136,7 @@
             font-weight: 800;
             border: none;
             cursor: pointer;
-            background: linear-gradient(90deg, #007BFF, #ff3366, #00ffcc, #007BFF);
+            background: linear-gradient(90deg, #007BFF, #ff3366, #00ffcc, #0077FF);
             background-size: 300% 100%;
             animation: runnerAnimation 2s linear infinite;
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
@@ -129,21 +154,23 @@
 </head>
 <body>
 
+    <!-- Header Navbar -->
     <div class="nav-bar">
-        <div class="logo" onclick="refreshToRandom()">BURMESE<span>RELAX</span></div>
+        <div class="logo-wrapper" onclick="refreshToRandom()">
+            <div class="logo">BURMESE<span>RELAX</span></div>
+            <!-- 📸 အစ်ကို့ရဲ့ ImgBB Logo လင့်ခ်ကို တိုက်ရိုက်ချိတ်ဆက်ပေးထားပါတယ်ဗျာ -->
+            <img class="site-logo-img" src="https://i.ibb.co/prdxhDS4/d6719cb17570cf605695f50cc1c25c86.jpg" alt="Logo">
+        </div>
     </div>
 
     <!-- Video Theater Box -->
     <div id="theater">
-        <!-- 🔙 နောက်သို့ပြန်သွားရန် ခလုတ် -->
         <div class="back-btn" onclick="closePlayer()">← နောက်သို့ ပြန်သွားရန်</div>
-        
         <div class="player">
             <iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe>
         </div>
         <h2 style="margin-top:12px; font-size: 15px;" id="vTitle"></h2>
         
-        <!-- 👑 VIP Promotion Panel -->
         <div class="vip-promo-box">
             <p>
                 မြန်မာကားများ // Local Leak // အထန်မမများ // ကလေးအောကား များကို <br>
@@ -168,8 +195,7 @@
         let page = 1;
         let isLoading = false;
 
-        // Telegram Link Setup
-        const tgBaseUrl = "https://t.me/Dr_chatgyi1?text=" + encodeURIComponent("Vip ဝင်ချင်လို့ပါ ငွေလွှဲရမဲ့နံပါတ်လေးပို့ပေးပါ");
+        const tgBaseUrl = "https://t.me/Dr_chatgyi1?text=" + encodeURIComponent("Vip ဝင်ချင်လို့ပါ Ngwe lwal ya mae nambar lay po pay par");
 
         window.onload = function() {
             document.getElementById("vipBtn").setAttribute("href", tgBaseUrl);
@@ -223,7 +249,6 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // 🔙 Player ပိတ်ပြီး မူရင်းအတိုင်း ပြန်ဖြစ်သွားစေမည့် ဖန်ရှင်
         function closePlayer() {
             document.getElementById('theater').style.display = 'none';
             document.getElementById('frame').src = '';
