@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Stream | Modern Dynamic</title>
+    <title>Premium Stream | Pastel Edition</title>
     
-    <!-- ⚠️ Adsterra Scripts -->
     <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
     <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
 
     <style>
         :root {
-            --bg-dark: #0a0a0c;
-            --card-glass: rgba(255, 255, 255, 0.05);
-            --accent: #ff4757;
-            --text-light: #ffffff;
-            --sexy-blue: #007BFF;
+            --bg-dark: #0B0F19; /* Deep Navy Dark Background */
+            --accent-blue: #A2D2FF; /* အစ်ကိုရွေးချယ်ထားသော Soft Pastel Blue */
+            --card-glass: rgba(162, 210, 255, 0.07); /* Pastel Blue Glass Effect */
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
+        body { background: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
         /* 👑 Modern Navbar */
         .nav-bar { 
@@ -27,9 +26,9 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid var(--card-glass); 
-            background: rgba(10, 10, 12, 0.8);
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(162, 210, 255, 0.1); 
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -40,65 +39,96 @@
             gap: 10px;
             cursor: pointer;
         }
-        .logo { font-size: 22px; font-weight: 800; letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
+        .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #ffffff; }
+        .logo span { color: var(--accent-blue); text-shadow: 0 0 10px rgba(162, 210, 255, 0.3); }
         
         .site-logo-img {
             width: 35px;
             height: 35px;
             object-fit: cover;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1.5px solid var(--accent-blue);
+            box-shadow: 0 0 8px rgba(162, 210, 255, 0.4);
         }
 
         /* Search Section */
         .search-area { padding: 20px; }
-        .search-input { width: 100%; padding: 15px; border-radius: 12px; border: none; background: var(--card-glass); color: #fff; outline: none; }
+        .search-input { 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 14px; 
+            border: 1px solid rgba(162, 210, 255, 0.15); 
+            background: var(--card-glass); 
+            color: #fff; 
+            outline: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(162, 210, 255, 0.2);
+        }
 
         /* Main Grid */
         .video-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 15px; 
+            gap: 18px; 
             padding: 20px; 
         }
 
         /* Premium Glass Card */
         .video-item { 
             background: var(--card-glass); 
-            backdrop-filter: blur(10px); 
+            backdrop-filter: blur(8px); 
             border-radius: 16px; 
             overflow: hidden; 
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(162, 210, 255, 0.03);
         }
-        .video-item:hover { transform: translateY(-5px); border: 1px solid var(--accent); }
+        .video-item:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent-blue);
+            box-shadow: 0 5px 15px rgba(162, 210, 255, 0.1);
+        }
         .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-        .details { padding: 12px; }
-        .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .details { padding: 14px; }
+        .title { font-size: 13px; color: var(--text-main); margin-bottom: 6px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-weight: 500; }
+        .views-count { color: var(--text-muted); font-size: 11px; }
 
-        /* 📱 Dedicated Separate Video View Page Layout */
+        /* 📱 Dedicated Video View Page Layout */
         #theater { 
             display: none; 
             position: fixed;
-            top: 66px; /* Navbar အောက်ကနေ စပွင့်မယ် */
+            top: 66px; 
             left: 0;
             width: 100vw;
             height: calc(100vh - 66px);
             background: var(--bg-dark); 
             padding: 20px; 
             overflow-y: auto;
-            z-index: 2000; /* အကုန်လုံးရဲ့အပေါ်ဆုံး ရောက်အောင် ဖမ်းထားပါတယ် */
+            z-index: 2000;
         }
-        .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; position: relative; }
+        
+        /* 📺 Video Frame Style (ဘောင်လိုင်းနှင့် Glow ထည့်ထားသည့်အပိုင်း) */
+        .player { 
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            background: #000; 
+            position: relative; 
+            border: 2px solid var(--accent-blue); /* ပရီမီယမ်ဘောင်လိုင်း */
+            box-shadow: 0 0 20px rgba(162, 210, 255, 0.25); /* Glow အလင်းတန်း Effect */
+        }
         
         /* 🔙 Back Button */
         .back-btn {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: rgba(162, 210, 255, 0.1);
+            color: var(--accent-blue);
             padding: 10px 20px;
             border-radius: 30px;
             text-decoration: none;
@@ -106,10 +136,10 @@
             font-weight: bold;
             margin-bottom: 16px;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: background 0.2s;
+            border: 1px solid rgba(162, 210, 255, 0.2);
+            transition: all 0.2s;
         }
-        .back-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .back-btn:hover { background: rgba(162, 210, 255, 0.2); }
 
         /* 👑 VIP Text & Promo Box */
         .vip-promo-box {
@@ -118,16 +148,16 @@
             border-radius: 16px;
             margin-top: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(162, 210, 255, 0.1);
         }
         .vip-promo-box p {
             font-size: 14px;
-            line-height: 1.6;
-            color: #e0e0e0;
+            line-height: 1.7;
+            color: var(--text-main);
             margin-bottom: 15px;
             font-weight: 500;
         }
-        .vip-highlight { color: #ff1262; font-weight: 800; }
+        .vip-highlight { color: var(--accent-blue); font-weight: 800; text-shadow: 0 0 5px rgba(162, 210, 255, 0.5); }
 
         /* 🏃‍♂️ Runner Color Wave Animation Button Style */
         .runner-vip-btn {
@@ -136,7 +166,7 @@
             max-width: 280px;
             padding: 14px;
             font-size: 14px;
-            color: #ffffff;
+            color: #0B0F19; /* စာသားကို Dark Theme ဖြစ်အောင်လုပ်ပြီး ပေါ်လွင်စေပါတယ် */
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -144,10 +174,10 @@
             font-weight: 800;
             border: none;
             cursor: pointer;
-            background: linear-gradient(90deg, #007BFF, #ff3366, #00ffcc, #0077FF);
+            background: linear-gradient(90deg, #A2D2FF, #ffffff, #B3E5FC, #A2D2FF);
             background-size: 300% 100%;
-            animation: runnerAnimation 2s linear infinite;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            animation: runnerAnimation 2.5s linear infinite;
+            box-shadow: 0 4px 15px rgba(162, 210, 255, 0.4);
             transition: transform 0.1s ease;
         }
         .runner-vip-btn:active { transform: scale(0.96); }
@@ -157,12 +187,11 @@
             100% { background-position: 100% 0%; }
         }
 
-        .loader { display: block; text-align: center; padding: 20px; color: var(--accent); font-weight: bold; }
+        .loader { display: block; text-align: center; padding: 20px; color: var(--accent-blue); font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar -->
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
             <div class="logo">BURMESE<span>RELAX</span></div>
@@ -170,9 +199,9 @@
         </div>
     </div>
 
-    <!-- 📱 Dedicated Separate Video View Page Panel (သီးသန့် Page ပုံစံ ဖြစ်သွားစေသည့် အပိုင်း) -->
     <div id="theater">
         <div class="back-btn" onclick="closePlayer()">← နောက်သို့ ပြန်သွားရန်</div>
+        
         <div class="player">
             <iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe>
         </div>
@@ -189,7 +218,6 @@
         </div>
     </div>
 
-    <!-- Main Content Area (Home Page Grid) -->
     <div id="mainContent">
         <div class="search-area">
             <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
@@ -238,7 +266,7 @@
                             <img src="${v.default_thumb.src}" class="thumb" loading="lazy">
                             <div class="details">
                                 <div class="title">${v.title}</div>
-                                <small style="opacity:0.6">👁️ ${parseInt(v.views).toLocaleString()} views</small>
+                                <div class="views-count">👁️ ${parseInt(v.views).toLocaleString()} views</div>
                             </div>
                         `;
                         grid.appendChild(div);
@@ -252,23 +280,17 @@
             }
         }
 
-        // ဗီဒီယို ဖွင့်လိုက်ချိန် (သီးသန့် Screen တစ်ခုတည်း ပေါ်လာစေခြင်း)
         function play(url, title) {
             document.getElementById('theater').style.display = 'block';
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
-            
-            // Home Page Grid ထဲက Scroll ကြောင့် အနှောင့်အယှက်မဖြစ်အောင် view page ကို ထိပ်ဆုံးကနေ စပြပေးပါတယ်
             document.getElementById('theater').scrollTop = 0;
-            // Background က Home Screen ကို ခေတ္တ Scroll ဆွဲလို့မရအောင် ပိတ်ထားပေးပါတယ်
             document.body.style.overflow = 'hidden'; 
         }
 
-        // ဗီဒီယို ပိတ်လိုက်ချိန် (မူရင်း Home Screen ကို ပြန်ပြခြင်း)
         function closePlayer() {
             document.getElementById('theater').style.display = 'none';
             document.getElementById('frame').src = '';
-            // Background က Home Screen ကို ပုံမှန်အတိုင်း ဆွဲလို့ရအောင် ပြန်ဖွင့်ပေးပါတယ်
             document.body.style.overflow = 'auto'; 
         }
 
@@ -289,7 +311,6 @@
         }
 
         window.onscroll = () => {
-            // Home Screen ပေါ်မှာပဲ Infinite Scroll အလုပ်လုပ်စေရန် ဖမ်းထားပါတယ်
             if (document.getElementById('theater').style.display !== 'block') {
                 if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
                     if(!isLoading) { page++; fetchVideos(page); }
