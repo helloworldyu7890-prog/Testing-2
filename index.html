@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Stream | Modern Dynamic</title>
     
+    <!-- ⚠️ Adsterra Scripts -->
     <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
     <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
 
@@ -18,7 +19,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-light); }
+        body { background: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
 
         /* 👑 Modern Navbar */
         .nav-bar { 
@@ -77,19 +78,18 @@
         .details { padding: 12px; }
         .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-        /* 🔒 Fixed Video Player Panel (အောက်ဆွဲချရင် ငြိမ်နေအောင် လုပ်ထားသည့်အပိုင်း) */
+        /* 📱 Dedicated Separate Video View Page Layout */
         #theater { 
             display: none; 
-            padding: 20px; 
-            background: var(--bg-dark); 
-            border-bottom: 1px solid var(--card-glass);
-            position: fixed; /* Fixed ပြောင်းလိုက်လို့ အပေါ်မှာပဲ ငြိမ်နေပါမယ် */
-            top: 66px; /* Navbar ရဲ့အောက်ကနေ ကပ်ပြီး ပေါ်ပါမယ် */
+            position: fixed;
+            top: 66px; /* Navbar အောက်ကနေ စပွင့်မယ် */
             left: 0;
-            width: 100%;
-            max-height: calc(100vh - 66px);
-            overflow-y: auto; /* ဗီဒီယို Panel ထဲက စာသားတွေရှည်ရင် ၎င်းထဲမှာတင် Scroll ဆွဲနိုင်ပါတယ် */
-            z-index: 999;
+            width: 100vw;
+            height: calc(100vh - 66px);
+            background: var(--bg-dark); 
+            padding: 20px; 
+            overflow-y: auto;
+            z-index: 2000; /* အကုန်လုံးရဲ့အပေါ်ဆုံး ရောက်အောင် ဖမ်းထားပါတယ် */
         }
         .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; position: relative; }
         
@@ -99,12 +99,12 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 30px;
             text-decoration: none;
             font-size: 13px;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: background 0.2s;
@@ -114,17 +114,17 @@
         /* 👑 VIP Text & Promo Box */
         .vip-promo-box {
             background: var(--card-glass);
-            padding: 16px;
+            padding: 20px;
             border-radius: 16px;
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .vip-promo-box p {
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.6;
             color: #e0e0e0;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-weight: 500;
         }
         .vip-highlight { color: #ff1262; font-weight: 800; }
@@ -134,7 +134,7 @@
             display: inline-block;
             width: 90%;
             max-width: 280px;
-            padding: 12px;
+            padding: 14px;
             font-size: 14px;
             color: #ffffff;
             text-decoration: none;
@@ -158,16 +158,11 @@
         }
 
         .loader { display: block; text-align: center; padding: 20px; color: var(--accent); font-weight: bold; }
-        
-        /* Player ပွင့်နေချိန် အောက်က ဗီဒီယိုတွေကို အပေါ်ကနေ နေရာချန်ပေးဖို့ သုံးပါတယ် */
-        .theater-open-padding {
-            padding-top: 0px;
-            transition: padding 0.3s ease;
-        }
     </style>
 </head>
 <body>
 
+    <!-- Header Navbar -->
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
             <div class="logo">BURMESE<span>RELAX</span></div>
@@ -175,12 +170,13 @@
         </div>
     </div>
 
+    <!-- 📱 Dedicated Separate Video View Page Panel (သီးသန့် Page ပုံစံ ဖြစ်သွားစေသည့် အပိုင်း) -->
     <div id="theater">
         <div class="back-btn" onclick="closePlayer()">← နောက်သို့ ပြန်သွားရန်</div>
         <div class="player">
             <iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe>
         </div>
-        <h2 style="margin-top:12px; font-size: 15px;" id="vTitle"></h2>
+        <h2 style="margin-top:16px; font-size: 16px; line-height: 1.4;" id="vTitle"></h2>
         
         <div class="vip-promo-box">
             <p>
@@ -193,7 +189,8 @@
         </div>
     </div>
 
-    <div id="mainContent" class="theater-open-padding">
+    <!-- Main Content Area (Home Page Grid) -->
+    <div id="mainContent">
         <div class="search-area">
             <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
         </div>
@@ -255,28 +252,24 @@
             }
         }
 
-        // ဗီဒီယို ဖွင့်လိုက်ချိန်
+        // ဗီဒီယို ဖွင့်လိုက်ချိန် (သီးသန့် Screen တစ်ခုတည်း ပေါ်လာစေခြင်း)
         function play(url, title) {
-            const theater = document.getElementById('theater');
-            theater.style.display = 'block';
+            document.getElementById('theater').style.display = 'block';
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
             
-            // ဗီဒီယိုဖွင့်ရင် အပေါ်ဆုံးကို Scroll တစ်ချက်ဆွဲပေးပြီး အောက်က Content တွေကို ကွယ်မသွားအောင် နေရာဖယ်ပေးပါတယ်
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            
-            // မျက်နှာပြင် အရွယ်အစားအလိုက် အောက်က Grid ကို ပျောက်မသွားအောင် နေရာချန်ပေးတဲ့ စနစ်
-            setTimeout(() => {
-                let theaterHeight = theater.offsetHeight;
-                document.getElementById('mainContent').style.paddingTop = theaterHeight + 'px';
-            }, 100);
+            // Home Page Grid ထဲက Scroll ကြောင့် အနှောင့်အယှက်မဖြစ်အောင် view page ကို ထိပ်ဆုံးကနေ စပြပေးပါတယ်
+            document.getElementById('theater').scrollTop = 0;
+            // Background က Home Screen ကို ခေတ္တ Scroll ဆွဲလို့မရအောင် ပိတ်ထားပေးပါတယ်
+            document.body.style.overflow = 'hidden'; 
         }
 
-        // ဗီဒီယို ပိတ်လိုက်ချိန်
+        // ဗီဒီယို ပိတ်လိုက်ချိန် (မူရင်း Home Screen ကို ပြန်ပြခြင်း)
         function closePlayer() {
             document.getElementById('theater').style.display = 'none';
             document.getElementById('frame').src = '';
-            document.getElementById('mainContent').style.paddingTop = '0px'; // နေရာချန်ထားတာကို ပြန်ဖျက်ပါတယ်
+            // Background က Home Screen ကို ပုံမှန်အတိုင်း ဆွဲလို့ရအောင် ပြန်ဖွင့်ပေးပါတယ်
+            document.body.style.overflow = 'auto'; 
         }
 
         function handleSearch(e) {
@@ -296,8 +289,11 @@
         }
 
         window.onscroll = () => {
-            if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
-                if(!isLoading) { page++; fetchVideos(page); }
+            // Home Screen ပေါ်မှာပဲ Infinite Scroll အလုပ်လုပ်စေရန် ဖမ်းထားပါတယ်
+            if (document.getElementById('theater').style.display !== 'block') {
+                if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
+                    if(!isLoading) { page++; fetchVideos(page); }
+                }
             }
         };
     </script>
