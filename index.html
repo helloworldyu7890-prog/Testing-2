@@ -2,600 +2,125 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BurmeseRelax-Hd</title>
-    
-    <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
-    
-    <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Stream | Modern</title>
     <style>
         :root {
-            --sexy-blue: #007BFF;
-            /* 🎨 #B0E0E6 Pure Soft Blue Theme Setup */
-            --body-bg: #9ecfd6;          
-            --app-bg: #B0E0E6;           
-            --card-bg: #ffffff;          
-            --border-color: #8cb8be;     
-            --text-main: #0c182b;
-            --text-muted: #3a5c66;
+            --bg-dark: #0a0a0c;
+            --card-glass: rgba(255, 255, 255, 0.05);
+            --accent: #ff4757;
+            --text-light: #ffffff;
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
-            -webkit-tap-highlight-color: transparent;
-            font-weight: 700;
-        }
-        
-        body { 
-            background-color: var(--body-bg);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-dark); color: var(--text-light); }
+
+        /* Modern Navbar */
+        .nav-bar { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-glass); }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
+
+        /* Search Section */
+        .search-area { padding: 20px; }
+        .search-input { width: 100%; padding: 15px; border-radius: 12px; border: none; background: var(--card-glass); color: #fff; outline: none; }
+
+        /* Main Grid */
+        .video-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 15px; 
+            padding: 20px; 
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 480px; 
-            background-color: var(--app-bg);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        /* Pure Light Header */
-        header {
-            background-color: var(--app-bg);
-            padding: 18px 20px;
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-            border-bottom: 3px solid var(--sexy-blue);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-brand h2 {
-            font-size: 22px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+        /* Premium Glass Card */
+        .video-item { 
+            background: var(--card-glass); 
+            backdrop-filter: blur(10px); 
+            border-radius: 16px; 
+            overflow: hidden; 
+            transition: transform 0.3s;
             cursor: pointer;
         }
-        .header-brand h2 .part-burma { color: var(--text-main); }
-        .header-brand h2 .part-yoyar { color: var(--text-muted); }
-        .header-brand h2 .part-hd { color: var(--sexy-blue); }
+        .video-item:hover { transform: translateY(-5px); border: 1px solid var(--accent); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .details { padding: 12px; }
+        .title { font-size: 13px; margin-bottom: 5px; height: 35px; overflow: hidden; }
 
-        /* Search Interface */
-        .search-container { padding: 16px; }
-        .search-box {
-            display: flex;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            overflow: hidden;
-            padding: 2px 4px 2px 16px;
+        /* Video Player Panel */
+        #theater { 
+            display: none; padding: 20px; position: sticky; top: 0; z-index: 100; 
+            background: var(--bg-dark); 
         }
-        .search-box input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            padding: 12px 0;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-        }
-        .search-box input::placeholder { color: var(--text-muted); }
-        .search-btn {
-            background-color: var(--sexy-blue);
-            border: none;
-            color: #ffffff;
-            padding: 0 22px;
-            font-size: 13px;
-            border-radius: 50px;
-            margin: 4px 0;
-            cursor: pointer;
-        }
-
-        /* Hero Banner */
-        .hero-banner-section {
-            background-color: var(--card-bg);
-            border-right: 4px solid var(--sexy-blue);
-            padding: 24px 20px;
-            margin: 0 16px 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-        .hero-sub {
-            font-size: 16px;
-            color: var(--sexy-blue);
-            margin-bottom: 6px;
-        }
-        .hero-main-title { 
-            font-size: 13px; 
-            line-height: 1.6; 
-            color: var(--text-main); 
-        }
-
-        .main-body-content { padding: 0 16px 40px 16px; }
-
-        .section-left-title { margin: 24px 0 14px 0; }
-        .section-left-title h3 {
-            font-size: 14px;
-            text-transform: uppercase;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .section-left-title h3::after {
-            content: '';
-            flex-grow: 1;
-            height: 2px;
-            background-color: var(--border-color);
-        }
-        .section-left-title p {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* Horizontal Scroll Slider */
-        .slider-categories-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 4px 0 12px 0;
-            scrollbar-width: none;
-        }
-        .slider-categories-container::-webkit-scrollbar { display: none; }
+        .player { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #000; }
         
-        .capsule-category-card {
-            flex: 0 0 auto;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .capsule-category-card:active { background-color: var(--sexy-blue); }
-        .capsule-category-card:active span { color: #ffffff; }
-        .capsule-category-card span { font-size: 13px; color: var(--text-main); white-space: nowrap; }
-
-        /* Grid Exploration */
-        .masonry-wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            align-items: start;
-        }
-        .masonry-column {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .staggered-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-        .column-left .staggered-card:nth-child(even) .thumb-box { aspect-ratio: 16/12; }
-        .column-right .staggered-card:nth-child(odd) .thumb-box { aspect-ratio: 16/9; }
-        
-        .thumb-box {
-            width: 100%;
-            aspect-ratio: 16/10;
-            background-color: #d1ecf0;
-            position: relative;
-        }
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-        .badge-18 {
-            position: absolute;
-            bottom: 8px; right: 8px;
-            background-color: var(--sexy-blue);
-            color: #ffffff; font-size: 9px; padding: 2px 6px; border-radius: 4px;
-        }
-        .card-details { padding: 12px; }
-        .staggered-card h4 {
-            font-size: 12px; color: var(--text-main); line-height: 1.4; margin-bottom: 8px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .card-meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); }
-
-        /* Alternating List */
-        .zigzag-column { display: flex; flex-direction: column; gap: 14px; }
-        .zigzag-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-        }
-        .zigzag-media { width: 40%; aspect-ratio: 4/3; background-color: #d1ecf0; flex-shrink: 0; }
-        .zigzag-media img { width: 100%; height: 100%; object-fit: cover; }
-        .zigzag-info { width: 60%; padding: 14px; display: flex; flex-direction: column; justify-content: center; }
-        .zigzag-info h4 { font-size: 13px; color: var(--text-main); margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-        .zigzag-info p { font-size: 11px; color: var(--text-muted); }
-        .zigzag-card:nth-child(even) { flex-direction: row-reverse; }
-        .zigzag-card:nth-child(even) .zigzag-info { text-align: right; }
-
-        /* Cinema Theater Box */
-        .cinema-theater-panel {
-            display: none;
-            background-color: #000;
-            border-radius: 16px;
-            margin: 15px 0 25px 0;
-            overflow: hidden;
-            border: 2px solid var(--sexy-blue);
-        }
-        .video-player-outer-box { width: 100%; aspect-ratio: 16/9; background: #000; }
-        .video-player-outer-box iframe { width: 100%; height: 100%; border: none; }
-        .cinema-title-heading { font-size: 13px; color: var(--text-main); padding: 14px 16px; line-height: 1.4; background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); }
-        
-        /* VIP Panel Configuration */
-        .vip-promo-box {
-            background-color: var(--card-bg);
-            padding: 18px 16px;
-            text-align: center;
-        }
-        .vip-promo-box p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-main);
-            margin-bottom: 14px;
-        }
-        .vip-highlight { color: #ff1262; font-weight: 800; }
-        
-        /* 🏃‍♂️ Runner Color Wave Animation Button Style */
-        .runner-vip-btn {
-            display: inline-block;
-            width: 90%;
-            max-width: 280px;
-            padding: 14px;
-            font-size: 14px;
-            color: #ffffff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            background: linear-gradient(90deg, #007BFF, #ff3366, #00ffcc, #007BFF);
-            background-size: 300% 100%;
-            animation: runnerAnimation 2s linear infinite;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-            transition: transform 0.1s ease;
-        }
-        .runner-vip-btn:active { transform: scale(0.96); }
-
-        @keyframes runnerAnimation {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 0%; }
-        }
-
-        /* Notice Popup Overlay */
-        .notice-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 30, 48, 0.7); z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: all 0.2s ease;
-        }
-        .notice-overlay.show { opacity: 1; visibility: visible; }
-        .notice-box {
-            width: 86%; max-width: 340px; background-color: var(--card-bg);
-            border: 2px solid var(--sexy-blue); border-radius: 16px; padding: 24px; text-align: center;
-        }
-        .notice-title { font-size: 16px; color: var(--text-main); margin-bottom: 12px; }
-        .notice-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; }
-        .notice-btn { width: 100%; background-color: var(--sexy-blue); color: #ffffff; border: none; padding: 12px; border-radius: 25px; font-size: 13px; cursor: pointer; }
-
-        /* Footer Section */
-        footer { background-color: var(--app-bg); color: var(--text-muted); padding: 30px 20px; margin-top: auto; border-top: 1px solid var(--border-color); }
-        .footer-grid-4col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px; }
-        .footer-block h5 { color: var(--text-main); font-size: 12px; margin-bottom: 10px; text-transform: uppercase; }
-        .footer-block ul { list-style: none; }
-        .footer-block ul li { margin-bottom: 6px; }
-        .footer-block ul li a { color: var(--text-muted); font-size: 11px; text-decoration: none; }
-        .footer-bottom-bar { border-top: 1px solid var(--border-color); padding-top: 15px; text-align: center; font-size: 11px; }
-
-        .loader { display: block; margin: 20px auto; border: 3px solid rgba(0,0,0,0.05); border-top: 3px solid var(--sexy-blue); border-radius: 50%; width: 26px; height: 26px; animation: spin 0.8s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn-vip { background: var(--accent); padding: 10px 20px; border-radius: 20px; color: #fff; text-decoration: none; display: inline-block; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="notice-overlay" id="noticePopup">
-    <div class="notice-box">
-        <div class="notice-title">📢 သတိပေးချက်နှင့် နှုတ်ခွန်းဆက်လွှာ</div>
-        <div class="notice-text">
-            BurmeseRelax-Hd မှ ကြိုဆိုပါတယ်ဗျာ။ ကျွန်ုပ်တို့ဆိုက်သည် နေ့စဉ် အကောင်းဆုံး ပရီမီယမ် ဇာတ်ကားများကို အရည်အသွေးမြင့်မားစွာဖြင့် အခမဲ့ တင်ဆက်ပေးနေပါသည်။
-        </div>
-        <button class="notice-btn" onclick="closeNotice()">👌 ဖတ်ပြီးပါပြီ</button>
-    </div>
-</div>
-
-<div class="app-container">
-
-    <header>
-        <div class="header-brand" onclick="backToHome()">
-            <h2>
-                <span class="part-burma">Burmese</span><span class="part-yoyar">Relax</span><span class="part-hd">-Hd</span>
-            </h2>
-        </div>
-    </header>
-
-    <div class="search-container">
-        <div class="search-box">
-            <input type="text" id="userSearchInput" placeholder="ဇာတ်ကားအမည်ဖြင့် ရှာဖွေပါ..." onkeypress="handleSearchKeyPress(event)">
-            <button class="search-btn" onclick="triggerSearch()">ရှာပါ</button>
-        </div>
+    <div class="nav-bar">
+        <div class="logo">BURMESE<span>RELAX</span></div>
     </div>
 
-    <div class="hero-banner-section">
-        <div class="hero-text-wrapper">
-            <div class="hero-sub" id="animatedTitle"></div>
-            <div class="hero-main-title" id="animatedBody"></div>
-        </div>
+    <div id="theater">
+        <div class="player"><iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe></div>
+        <h2 style="margin-top:15px;" id="vTitle"></h2>
+        <a href="https://t.me/Dr_chatgyi1" class="btn-vip">🔥 VIP ACCESS</a>
     </div>
 
-    <div class="main-body-content">
-
-        <div class="cinema-theater-panel" id="theaterBox">
-            <div class="video-player-outer-box">
-                <iframe id="videoIframe" src="" allowfullscreen></iframe>
-            </div>
-            <h3 class="cinema-title-heading" id="videoTitle">Streaming Player Title...</h3>
-            
-            <div class="vip-promo-box">
-                <p>
-                    မြန်မာချောင်းရိုက် // ကလေးအောကား // မော်ဒယ်ကားများ // အထန်မလေးများ // Local Leak // အစုံကိုကြည့်ရှုနိုင်ဖို့ <br>
-                    <span class="vip-highlight">တစ်သက်စာ VIP ကြေး ၂၀၀၀၀ ကျပ်</span> ဖြင့် လာဝယ်လို့ရပြီ!
-                </p>
-                <a class="runner-vip-btn" href="" target="_blank">
-                    VIP ဝယ်ရန်
-                </a>
-            </div>
-        </div>
-
-        <div class="section-left-title">
-            <h3>TOP CATEGORIES</h3>
-            <p>Swipe Left/Right to Discover Premium Genres</p>
-        </div>
-        <div class="slider-categories-container">
-            <div class="capsule-category-card" onclick="fetchNewCategory('myanmar')"><span>Myanmar Solo</span></div>
-            <div class="capsule-category-card" onclick="fetchNewCategory('japan')"><span>Japan JAV</span></div>
-            <div class="capsule-category-card" onclick="fetchNewCategory('asian')"><span>Asian Exclusives</span></div>
-            <div class="capsule-category-card" onclick="fetchNewCategory('romance')"><span>Romance</span></div>
-            <div class="capsule-category-card" onclick="fetchNewCategory('college')"><span>Amateur Leak</span></div>
-        </div>
-
-        <div class="section-left-title">
-            <h3>PLATINUM DISCOVERIES</h3>
-            <p>Staggered Interactive Grid Exploration</p>
-        </div>
-        <div class="masonry-wrapper">
-            <div class="masonry-column column-left" id="masonryLeft"></div>
-            <div class="masonry-column column-right" id="masonryRight"></div>
-        </div>
-
-        <div class="section-left-title">
-            <h3>LATEST RELEASES</h3>
-            <p>Creative Interlocking Grid Stream</p>
-        </div>
-        <div class="zigzag-column" id="zigzagList"></div>
-
-        <div class="loader" id="networkLoader" style="display:none;"></div>
-
+    <div class="search-area">
+        <input type="text" class="search-input" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
     </div>
 
-    <footer>
-        <div class="footer-grid-4col">
-            <div class="footer-block">
-                <h5>Products</h5>
-                <ul><li><a href="#">Premium VIP</a></li></ul>
-            </div>
-            <div class="footer-block">
-                <h5>Category</h5>
-                <ul>
-                    <li><a href="#" onclick="fetchNewCategory('myanmar')">Myanmar Leak</a></li>
-                    <li><a href="#" onclick="fetchNewCategory('japan')">JAV Censored</a></li>
-                </ul>
-            </div>
-            <div class="footer-block">
-                <h5>Company</h5>
-                <ul><li><a href="#">About Us</a></li></ul>
-            </div>
-            <div class="footer-block">
-                <h5>Support</h5>
-                <ul><li><a href="#">Telegram Group</a></li></ul>
-            </div>
-        </div>
-        <div class="footer-bottom-bar">&copy; 2026 BurmeseRelax-Hd. All Rights Reserved.</div>
-    </footer>
+    <div class="video-grid" id="container"></div>
 
-</div>
-
-<script>
-    const API_URL = 'https://www.eporner.com/api/v2/video/search/';
-    let currentKeyword = 'myanmar';
-    let currentPage = 1;
-    let loading = false;
-    let appendMode = false;
-    let loadedVideoIds = new Set(); 
-
-    // Setup Target Address & Preformatted Auto text
-    const tgBaseUrl = "https://t.me/Dr_chatgyi1?text=" + encodeURIComponent("Vip ဝင်ချင်လို့ပါ Ngwe lwal ya mae nambar lay po pay par");
-    
-    const titleText = "ပရီမီယမ် ရသခံစားမှု့";
-    const bodyText = "မြန်မာကားများတင်သာမက VIP , LOCAL LEAK , အဆင့်မြင့် အာရှ ဇာတ်ကားပေါင်းများစွာကို ပရီမီယမ်ဆန်စွာ အခမဲ့ ကြည့်ရှုနิူင်ပြီ!";
-
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelector(".runner-vip-btn").setAttribute("href", tgBaseUrl);
+    <script>
+        let page = 1;
+        let query = 'myanmar';
         
-        startEngine();
-        startTextAnimations();
-        if (!localStorage.getItem("hasSeenBurmaYoYarNoticeFinal")) {
-            document.getElementById("noticePopup").classList.add("show");
-        }
-    });
-
-    function closeNotice() {
-        document.getElementById("noticePopup").classList.remove("show");
-        localStorage.setItem("hasSeenBurmaYoYarNoticeFinal", "true");
-    }
-
-    function startTextAnimations() {
-        let titleIdx = 0, bodyIdx = 0;
-        const titleContainer = document.getElementById("animatedTitle");
-        const bodyContainer = document.getElementById("animatedBody");
-        function typeTitle() {
-            if (titleIdx < titleText.length) { titleContainer.innerHTML += titleText.charAt(titleIdx); titleIdx++; setTimeout(typeTitle, 90); } 
-            else { setTimeout(typeBody, 400); }
-        }
-        function typeBody() {
-            if (bodyIdx < bodyText.length) { bodyContainer.innerHTML += bodyText.charAt(bodyIdx); bodyIdx++; setTimeout(typeBody, 40); }
-        }
-        typeTitle();
-    }
-
-    function startEngine() {
-        appendMode = false;
-        loadedVideoIds.clear(); 
-        currentPage = 1; // Random မလုပ်ဘဲ Page 1 ကနေ စနစ်တကျ စခေါ်ခိုင်းထားပါတယ်
-        loadContentFeed(currentKeyword, currentPage);
-    }
-
-    async function loadContentFeed(keyword, page) {
-        if (loading) return;
-        loading = true;
-        document.getElementById("networkLoader").style.display = "block";
-
-        try {
-            const res = await fetch(`${API_URL}?query=${encodeURIComponent(keyword)}&per_page=16&page=${page}&thumbsize=big`);
+        async function fetchVideos(p) {
+            const res = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${query}&per_page=20&page=${p}`);
             const data = await res.json();
-
-            if (data && data.videos && data.videos.length > 0) {
-                if (!appendMode) {
-                    document.getElementById("masonryLeft").innerHTML = "";
-                    document.getElementById("masonryRight").innerHTML = "";
-                    document.getElementById("zigzagList").innerHTML = "";
-                }
-                
-                const uniqueVideos = data.videos.filter(v => !loadedVideoIds.has(v.id) && loadedVideoIds.add(v.id));
-
-                if (uniqueVideos.length > 0) {
-                    renderNewLayouts(uniqueVideos);
-                } else {
-                    // ဗီဒီယို ထပ်ရှိသေးရင် နောက် Page ကို Auto ကူးခေါ်ရန်
-                    loading = false; currentPage++; loadContentFeed(keyword, currentPage); return;
-                }
-            }
-        } catch (e) { console.error(e); } 
-        finally { document.getElementById("networkLoader").style.display = "none"; loading = false; }
-    }
-
-    function renderNewLayouts(videos) {
-        const mLeft = document.getElementById("masonryLeft");
-        const mRight = document.getElementById("masonryRight");
-        const zigzagList = document.getElementById("zigzagList");
-
-        // မူရင်း Layout ပုံစံမပျက်အောင် ပထမဆုံးအကြိမ် (သို့မဟုတ်) Scroll ဆွဲတိုင်း ခွဲဝေဖြည့်တင်းပေးခြင်း
-        const gridItems = videos.slice(0, 6);
-        gridItems.forEach((v, index) => {
-            const card = document.createElement("div");
-            card.className = "staggered-card";
-            card.onclick = () => playVideo(v.embed, v.title);
-            card.innerHTML = `
-                <div class="thumb-box">
-                    <img src="${v.default_thumb.src}" alt="thumb" loading="lazy">
-                    <div class="badge-18">HD</div>
-                </div>
-                <div class="card-details">
-                    <h4>${v.title}</h4>
-                    <div class="card-meta">
-                        <span>👁️ ${parseInt(v.views).toLocaleString()} views</span>
+            const grid = document.getElementById('container');
+            
+            data.videos.forEach(v => {
+                const div = document.createElement('div');
+                div.className = 'video-item';
+                div.onclick = () => play(v.embed, v.title);
+                div.innerHTML = `
+                    <img src="${v.default_thumb.src}" class="thumb">
+                    <div class="details">
+                        <div class="title">${v.title}</div>
+                        <small style="opacity:0.6">${v.views} views</small>
                     </div>
-                </div>
-            `;
-            if (index % 2 === 0) mLeft.appendChild(card);
-            else mRight.appendChild(card);
-        });
+                `;
+                grid.appendChild(div);
+            });
+        }
 
-        const rowItems = videos.slice(6);
-        rowItems.forEach(v => {
-            const item = document.createElement("div");
-            item.className = "zigzag-card";
-            item.onclick = () => playVideo(v.embed, v.title);
-            item.innerHTML = `
-                <div class="zigzag-media">
-                    <img src="${v.default_thumb.src}" alt="thumb" loading="lazy">
-                </div>
-                <div class="zigzag-info">
-                    <h4>${v.title}</h4>
-                    <p>👁️ ${parseInt(v.views).toLocaleString()} views</p>
-                </div>
-            `;
-            zigzagList.appendChild(item);
-        });
-    }
+        function play(url, title) {
+            document.getElementById('theater').style.display = 'block';
+            document.getElementById('frame').src = url;
+            document.getElementById('vTitle').innerText = title;
+            window.scrollTo(0, 0);
+        }
 
-    function triggerSearch() {
-        const queryInput = document.getElementById("userSearchInput").value.trim();
-        if (queryInput === "") return;
-        document.getElementById("theaterBox").style.display = "none";
-        document.getElementById("videoIframe").src = "";
-        loadedVideoIds.clear(); 
-        currentKeyword = queryInput; currentPage = 1; appendMode = false;
-        loadContentFeed(currentKeyword, currentPage);
-    }
-
-    function handleSearchKeyPress(e) { if (e.key === "Enter") triggerSearch(); }
-
-    function playVideo(url, title) {
-        window.scrollTo({top: 140, behavior: 'smooth'});
-        document.getElementById("theaterBox").style.display = "block";
-        document.getElementById("videoIframe").src = url;
-        document.getElementById("videoTitle").innerText = title;
-    }
-
-    function fetchNewCategory(cat) {
-        document.getElementById("theaterBox").style.display = "none";
-        document.getElementById("videoIframe").src = "";
-        document.getElementById("userSearchInput").value = ""; 
-        loadedVideoIds.clear(); currentKeyword = cat; appendMode = false;
-        currentPage = 1;
-        loadContentFeed(currentKeyword, currentPage);
-    }
-
-    function backToHome() { fetchNewCategory('myanmar'); }
-
-    // 🚀 ပြင်ဆင်လိုက်သည့် ပိုမိုကောင်းမွန်သော Infinite Scroll Logic
-    window.onscroll = function() {
-        // Screen ရဲ့ အောက်ခြေနားရောက်ခါနီး (600px အကွာ) မှာ ဒေတာအသစ်လှမ်းတောင်းခြင်း
-        if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 600) {
-            if (!loading) { 
-                appendMode = true; 
-                currentPage++; 
-                loadContentFeed(currentKeyword, currentPage); 
+        function handleSearch(e) {
+            if(e.key === 'Enter') {
+                query = e.target.value;
+                page = 1;
+                document.getElementById('container').innerHTML = '';
+                fetchVideos(page);
             }
         }
-    };
-</script>
 
+        window.onscroll = () => {
+            if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                page++; fetchVideos(page);
+            }
+        };
+
+        fetchVideos(page);
+    </script>
 </body>
 </html>
