@@ -5,205 +5,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAZYWORLD</title>
     
-    <!-
+    <!-- ⚠️ Adsterra Scripts -->
     <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
     <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
 
     <style>
         :root {
-            --bg-pastel: #A2D2FF; /* UI တစ်ခုလုံးအတွက် အစ်ကိုရွေးချယ်ထားသော အပြာနုရောင် */
-            --ui-dark: #0F2027; /* စာသားနှင့် ထင်ရှားစေမည့် နေရာများအတွက် ညှို့မှောင်သော အပြာရင့်ရောင် */
-            --card-light: rgba(255, 255, 255, 0.45); /* ပိုမိုလှပသော Glassmorphism Card ဖြူဖြူလေးများ */
-            --text-dark: #0A192F;
-            --text-muted: #4A5568;
+            --bg-pastel: #A2D2FF; /* UI တစ်ခုလုံးအတွက် အပြာနုရောင် */
+            --border-dark: #000000; /* ပုံထဲကအတိုင်း ထူထဲသော အမည်းရောင်လိုင်း */
+            --card-light: rgba(255, 255, 255, 0.5);
+            --text-dark: #000000;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-pastel); color: var(--text-dark); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial Black', 'Impact', sans-serif; }
+        body { background: #ffffff; color: var(--text-dark); padding: 15px; overflow-x: hidden; }
 
-        /* 👑 UI တစ်ခုလုံးနှင့် လိုက်ဖက်သော Navbar */
+        /* 👑 UI Navbar (ပုံထဲကအပေါ်ဆုံး Box အတိုင်း) */
         .nav-bar { 
-            padding: 15px 20px; 
+            padding: 20px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid rgba(15, 32, 39, 0.1); 
-            background: rgba(162, 210, 255, 0.85);
-            backdrop-filter: blur(12px);
+            border: 4px solid var(--border-dark); 
+            background: var(--bg-pastel);
+            border-radius: 16px;
             position: sticky;
-            top: 0;
+            top: 15px;
             z-index: 1000;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 0 var(--border-dark);
         }
         .logo-wrapper {
+            width: 100%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
             cursor: pointer;
         }
-        .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--ui-dark); }
-        .logo span { color: #ffffff; text-shadow: 1px 1px 4px rgba(0,0,0,0.15); }
-        
+        .logo-title { font-size: 26px; font-weight: 900; text-transform: uppercase; color: var(--text-dark); }
         .site-logo-img {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 3px solid var(--border-dark);
         }
 
+        /* 💥 Hero Banner Box (ပုံထဲက ဒုတိယမြောက် Box အတိုင်း Shape ယူထားပါသည်) */
+        .hero-banner-box {
+            background: var(--bg-pastel);
+            border: 4px solid var(--border-dark);
+            padding: 25px 20px;
+            /* ညာဘက်အပေါ်ထောင့်ကို စောင်းသွားစေရန် ပုံထဲကအတိုင်း ချိန်ညှိထားပါသည် */
+            border-radius: 16px 120px 40px 40px; 
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 6px 0 var(--border-dark);
+        }
+        .hero-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
+        .hero-subtitle { font-size: 15px; font-weight: bold; color: #404040; margin-bottom: 20px; line-height: 1.6; }
+        
+        /* Banner Logo နေရာတွင် VIP Button ထည့်သွင်းထားမှု */
+        .banner-logo-btn-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+        .runner-vip-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 15px;
+            color: #ffffff; 
+            background: var(--border-dark);
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 12px;
+            font-weight: 900;
+            border: 3px solid var(--border-dark);
+            cursor: pointer;
+            box-shadow: -4px 4px 0 rgba(0,0,0,0.2);
+            transition: all 0.1s ease;
+        }
+        .runner-vip-btn:active { transform: translate(-2px, 2px); box-shadow: 0px 0px 0px; }
+
         /* Search Section */
-        .search-area { padding: 20px; }
+        .search-area { padding: 0 5px 20px 5px; }
         .search-input { 
             width: 100%; 
             padding: 15px; 
             border-radius: 14px; 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            background: var(--card-light); 
+            border: 4px solid var(--border-dark); 
+            background: var(--bg-pastel); 
             color: var(--text-dark); 
             outline: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 900;
+            box-shadow: 0 4px 0 var(--border-dark);
         }
-        .search-input::placeholder { color: rgba(10, 25, 47, 0.6); }
-        .search-input:focus {
-            background: #ffffff;
-            border-color: var(--ui-dark);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
+        .search-input::placeholder { color: rgba(0, 0, 0, 0.5); }
 
         /* Main Grid */
         .video-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 18px; 
-            padding: 20px; 
+            gap: 20px; 
+            padding: 5px;
         }
 
-        /* Premium Glass Card (Light Mode Style) */
+        /* Video Card Style */
         .video-item { 
-            background: var(--card-light); 
-            backdrop-filter: blur(8px); 
+            background: var(--bg-pastel); 
             border-radius: 16px; 
             overflow: hidden; 
-            transition: all 0.3s ease;
+            transition: transform 0.2s;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+            border: 4px solid var(--border-dark);
+            box-shadow: 0 5px 0 var(--border-dark);
         }
-        .video-item:hover { 
-            transform: translateY(-5px); 
-            background: #ffffff;
-            border-color: var(--ui-dark);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-        .details { padding: 14px; }
-        .title { font-size: 13px; color: var(--text-dark); margin-bottom: 6px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-weight: 600; line-height: 1.4; }
-        .views-count { color: var(--text-muted); font-size: 11px; font-weight: 500; }
+        .video-item:hover { transform: translateY(-4px); box-shadow: 0 8px 0 var(--border-dark); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 4px solid var(--border-dark); }
+        .details { padding: 14px; background: #ffffff; }
+        .title { font-size: 13px; color: var(--text-dark); margin-bottom: 6px; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-weight: 900; line-height: 1.4; }
+        .views-count { color: #555; font-size: 11px; font-weight: bold; }
 
         /* 📱 Dedicated Video View Page Layout */
         #theater { 
             display: none; 
             position: fixed;
-            top: 66px; 
+            top: 0; 
             left: 0;
             width: 100vw;
-            height: calc(100vh - 66px);
-            background: var(--bg-pastel); /* ၎င်း Page တွင်လည်း အပြာနုရောင်ဖြစ်နေပါမည် */
+            height: 100vh;
+            background: #ffffff; 
             padding: 20px; 
             overflow-y: auto;
             z-index: 2000;
         }
         
-        /* 📺 Video Frame Style (UI အပြာနုနှင့်လိုက်ဖက်သော ဘောင်) */
+        /* 📺 Video Frame Style (ထူထဲသော အမည်းရောင်ဘောင်နှင့် Panel) */
         .player { 
             width: 100%; 
             aspect-ratio: 16/9; 
-            border-radius: 20px; 
+            border-radius: 24px; 
             overflow: hidden; 
             background: #000; 
             position: relative; 
-            border: 3px solid var(--ui-dark); /* ထင်ရှားပြတ်သားသော ပြာရင့်ရင့်ဘောင်လိုင်း */
-            box-shadow: 0 8px 24px rgba(15, 32, 39, 0.2); 
+            border: 5px solid var(--border-dark); 
+            box-shadow: 0 8px 0 var(--border-dark);
+            margin-bottom: 20px;
         }
         
         /* 🔙 Back Button */
         .back-btn {
             display: inline-flex;
             align-items: center;
-            background: var(--ui-dark);
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        .back-btn:hover { opacity: 0.9; transform: scale(1.02); }
-
-        /* 👑 VIP Text & Promo Box */
-        .vip-promo-box {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 16px;
-            margin-top: 20px;
-            text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .vip-promo-box p {
-            font-size: 14px;
-            line-height: 1.7;
+            background: var(--bg-pastel);
             color: var(--text-dark);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .vip-highlight { color: #ff3366; font-weight: 800; }
-
-        /* 🏃‍♂️ Runner Wave Button (UI နှင့်လိုက်ဖက်အောင် ပြာရင့်ရောင် Wave လုပ်ထားပါသည်) */
-        .runner-vip-btn {
-            display: inline-block;
-            width: 90%;
-            max-width: 280px;
-            padding: 14px;
-            font-size: 14px;
-            color: #ffffff; 
+            padding: 12px 24px;
+            border-radius: 14px;
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            font-weight: 800;
-            border: none;
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 20px;
             cursor: pointer;
-            background: linear-gradient(90deg, #0F2027, #203A43, #2C5364, #0F2027);
-            background-size: 300% 100%;
-            animation: runnerAnimation 2s linear infinite;
-            box-shadow: 0 4px 15px rgba(15, 32, 39, 0.3);
-            transition: transform 0.1s ease;
+            border: 4px solid var(--border-dark);
+            box-shadow: 0 4px 0 var(--border-dark);
         }
-        .runner-vip-btn:active { transform: scale(0.96); }
+        .back-btn:hover { transform: translateY(-2px); }
 
-        @keyframes runnerAnimation {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 0%; }
-        }
-
-        .loader { display: block; text-align: center; padding: 20px; color: var(--ui-dark); font-weight: bold; }
+        .loader { display: block; text-align: center; padding: 20px; color: var(--border-dark); font-size: 18px; font-weight: 900; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar -->
+    <!-- Header Navbar (အပေါ်ဆုံး Box ပုံစံ) -->
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
-            <div class="logo">CRAZY<span>WORLD</span></div>
+            <div class="logo-title">CRAZYWORLD</div>
             <img class="site-logo-img" src="https://i.ibb.co/prdxhDS4/d6719cb17570cf605695f50cc1c25c86.jpg" alt="Logo">
+        </div>
+    </div>
+
+    <!-- 💥 Hero Banner Box (ဒုတိယမြောက် Box ပုံစံ) -->
+    <div class="hero-banner-box" id="heroBanner">
+        <div class="hero-title">Hero Banner</div>
+        <div class="hero-subtitle">
+            မြန်မာကားများ // Local Leak // အထန်မမများ // ကလေးအောကား များကို <br>
+            တစ်သတ်တာ မန်ဘာကြေး ၂၀၀၀၀ ကျပ် ဖြင့် လာဝင်နိုင်ပါပြီ။
+        </div>
+        <div class="banner-logo-btn-wrapper">
+            <a id="vipBtn" class="runner-vip-btn" href="" target="_blank">
+                Banner Logo (VIP ဝင်ရန်)
+            </a>
         </div>
     </div>
 
@@ -215,17 +208,7 @@
         <div class="player">
             <iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe>
         </div>
-        <h2 style="margin-top:16px; font-size: 16px; line-height: 1.4; color: var(--text-dark);" id="vTitle"></h2>
-        
-        <div class="vip-promo-box">
-            <p>
-                မြန်မာကားများ // Local Leak // အထန်မမများ // ကလေးအောကား များကို <br>
-                တစ်သတ်တာ မန်ဘာကြေး <span class="vip-highlight">၂၀၀၀၀ ကျပ်</span> ဖြင့် လာဝင်နိုင်ပါပြီ။
-            </p>
-            <a id="vipBtn" class="runner-vip-btn" href="" target="_blank">
-                🔥 VIP ဝင်ရန်
-            </a>
-        </div>
+        <h2 style="margin-bottom:20px; font-size: 18px; line-height: 1.4; font-weight: 900;" id="vTitle"></h2>
     </div>
 
     <!-- Main Content Area (Home Page Grid) -->
