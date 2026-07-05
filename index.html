@@ -180,10 +180,84 @@
             padding-bottom: 10px;
         }
 
+        /* 🚨 Notice Pop-up Styles (စတိုင်အသစ်ထည့်သွင်းထားမှု) */
+        .notice-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .notice-box {
+            background: #ffffff;
+            border: 4px solid var(--border-dark);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            padding: 25px;
+            box-shadow: 0 8px 0 var(--border-dark);
+            text-align: center;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .notice-header {
+            background: var(--bg-pastel);
+            border: 3px solid var(--border-dark);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 0 var(--border-dark);
+        }
+        .notice-body {
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .notice-close-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background: var(--border-dark);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 900;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+            transition: all 0.1s;
+        }
+        .notice-close-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .loader { display: block; text-align: center; padding: 20px; color: var(--border-dark); font-size: 18px; font-weight: 900; }
     </style>
 </head>
 <body>
+
+    <div class="notice-overlay" id="noticeOverlay">
+        <div class="notice-box">
+            <div class="notice-header">📢 သတိပေးချက်</div>
+            <div class="notice-body">
+                ဝဘ်ဆိုက်အတွင်းရှိ ဗီဒီယိုများကို အနှောင့်အယှက်မရှိ ကြည့်ရှုနိုင်ရန်နှင့် လိုင်းမကျစေရန်အတွက် VPN ပိတ်ပြီး ကြည့်ရှုပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။ အဆင်မပြေမှုများရှိပါက VIP အဖွဲ့ဝင်ရောက်ပြီး တိုက်ရိုက်ရယူနိုင်ပါသည်။
+            </div>
+            <button class="notice-close-btn" onclick="closeNotice()">သိပါပြီ</button>
+        </div>
+    </div>
 
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
@@ -242,6 +316,11 @@
             setRandomFeed();
         };
 
+        // Notice ပိတ်ရန်အတွက် Function
+        function closeNotice() {
+            document.getElementById('noticeOverlay').style.display = 'none';
+        }
+
         function setRandomFeed() {
             query = keywordsPool[Math.floor(Math.random() * keywordsPool.length)];
             page = Math.floor(Math.random() * 8) + 1; 
@@ -282,14 +361,12 @@
             }
         }
 
-        // Related Videos အတွက် ဗီဒီယိုများကို သီးသန့်ဆွဲယူပေးမည့် Function
         async function fetchRelatedVideos(p) {
             if (isRelatedLoading) return;
             isRelatedLoading = true;
             document.getElementById('relatedLoadingStatus').style.display = 'block';
 
             try {
-                // လက်ရှိစာလုံး သို့မဟုတ် random စာလုံးဖြင့် ဆက်စပ်ဗီဒီယို ရှာပေးသည်
                 const randomKeyword = keywordsPool[Math.floor(Math.random() * keywordsPool.length)];
                 const res = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(randomKeyword)}&per_page=12&page=${p}&thumbsize=big`);
                 const data = await res.json();
@@ -323,7 +400,6 @@
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
             
-            // Related Container ကို ရှင်းထုတ်ပြီး ဗီဒီယိုအသစ်တွေ စတင်ခေါ်ယူသည်
             document.getElementById('relatedContainer').innerHTML = '';
             relatedPage = Math.floor(Math.random() * 5) + 1;
             fetchRelatedVideos(relatedPage);
@@ -354,7 +430,6 @@
             setRandomFeed();
         }
 
-        // Main Home Screen အတွက် Infinite Scroll
         window.onscroll = () => {
             if (document.getElementById('theater').style.display !== 'block') {
                 if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
@@ -363,7 +438,6 @@
             }
         };
 
-        // Related Videos အတွက် Theater Page အတွင်း Infinite Scroll ဆွဲနိုင်ရန် ထည့်သွင်းထားမှု
         document.getElementById('theater').onscroll = function() {
             const theater = document.getElementById('theater');
             if (theater.scrollTop + theater.clientHeight >= theater.scrollHeight - 400) {
