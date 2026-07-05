@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAZYWORLD</title>
     
-  
     <script src="https://pl30200751.effectivecpmnetwork.com/7c/62/e5/7c62e523a048df558686896a53a4c525.js"></script>
     <script src="https://pl30200752.effectivecpmnetwork.com/e0/11/0e/e0110eb1ee8550c29e1b5ba2aa848d8f.js"></script>
 
     <style>
         :root {
             --bg-pastel: #A2D2FF; /* UI တစ်ခုလုံးအတွက် အပြာနုရောင် */
-            --border-dark: #000000; /* ပုံထဲကအတိုင်း ထူထဲသော အမည်းရောင်လိုင်း */
+            --border-dark: #000000; /* ထူထဲသော အမည်းရောင်လိုင်း */
             --card-light: rgba(255, 255, 255, 0.5);
             --text-dark: #000000;
         }
@@ -20,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial Black', 'Impact', sans-serif; }
         body { background: #ffffff; color: var(--text-dark); padding: 15px; overflow-x: hidden; }
 
-        /* 👑 UI Navbar (ပုံထဲကအပေါ်ဆုံး Box အတိုင်း) */
+        /* 👑 UI Navbar */
         .nav-bar { 
             padding: 20px; 
             display: flex; 
@@ -51,12 +50,11 @@
             border: 3px solid var(--border-dark);
         }
 
-        /* 💥 Hero Banner Box (ပုံထဲက ဒုတိယမြောက် Box အတိုင်း Shape ယူထားပါသည်) */
+        /* 💥 Hero Banner Box */
         .hero-banner-box {
             background: var(--bg-pastel);
             border: 4px solid var(--border-dark);
             padding: 25px 20px;
-            /* ညာဘက်အပေါ်ထောင့်ကို စောင်းသွားစေရန် ပုံထဲကအတိုင်း ချိန်ညှိထားပါသည် */
             border-radius: 16px 120px 40px 40px; 
             margin-bottom: 25px;
             position: relative;
@@ -65,7 +63,6 @@
         .hero-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; }
         .hero-subtitle { font-size: 15px; font-weight: bold; color: #404040; margin-bottom: 20px; line-height: 1.6; }
         
-        /* Banner Logo နေရာတွင် VIP Button ထည့်သွင်းထားမှု */
         .banner-logo-btn-wrapper {
             display: flex;
             justify-content: flex-end;
@@ -142,7 +139,7 @@
             z-index: 2000;
         }
         
-        /* 📺 Video Frame Style (ထူထဲသော အမည်းရောင်ဘောင်နှင့် Panel) */
+        /* 📺 Video Frame Style */
         .player { 
             width: 100%; 
             aspect-ratio: 16/9; 
@@ -173,12 +170,21 @@
         }
         .back-btn:hover { transform: translateY(-2px); }
 
+        /* ✨ Related Videos Title Style */
+        .related-title {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 30px 0 15px 5px;
+            border-bottom: 4px dashed var(--border-dark);
+            padding-bottom: 10px;
+        }
+
         .loader { display: block; text-align: center; padding: 20px; color: var(--border-dark); font-size: 18px; font-weight: 900; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar (အပေါ်ဆုံး Box ပုံစံ) -->
     <div class="nav-bar">
         <div class="logo-wrapper" onclick="refreshToRandom()">
             <div class="logo-title">CRAZYWORLD</div>
@@ -186,7 +192,6 @@
         </div>
     </div>
 
-    
     <div class="hero-banner-box" id="heroBanner">
         <div class="hero-title">ဗီအိုင်ပီပက်ကေ့ချ်</div>
         <div class="hero-subtitle">
@@ -200,18 +205,19 @@
         </div>
     </div>
 
-    <!-- 📱 Dedicated Separate Video View Page Panel -->
     <div id="theater">
         <div class="back-btn" onclick="closePlayer()">← နောက်သို့ ပြန်သွားရန်</div>
         
-        <!-- 📺 UI တစ်ခုလုံးနှင့် လိုက်ဖက်သော Video Frame -->
         <div class="player">
             <iframe id="frame" src="" width="100%" height="100%" allowfullscreen></iframe>
         </div>
         <h2 style="margin-bottom:20px; font-size: 18px; line-height: 1.4; font-weight: 900;" id="vTitle"></h2>
+
+        <div class="related-title">Related Videos --------</div>
+        <div class="video-grid" id="relatedContainer"></div>
+        <div id="relatedLoadingStatus" class="loader" style="display:none;">Loading related videos...</div>
     </div>
 
-    <!-- Main Content Area (Home Page Grid) -->
     <div id="mainContent">
         <div class="search-area">
             <input type="text" class="search-input" id="searchInput" placeholder="Search premium videos..." onkeypress="handleSearch(event)">
@@ -225,7 +231,9 @@
         const keywordsPool = ['myanmar', 'japan', 'asian', 'romance', 'college', 'sexy', 'leaked', 'amateur', 'solo'];
         let query = '';
         let page = 1;
+        let relatedPage = 1;
         let isLoading = false;
+        let isRelatedLoading = false;
 
         const tgBaseUrl = "https://t.me/Dr_chatgyi1?text=" + encodeURIComponent("Vip ဝင်ချင်လို့ပါ Ngwe lwal ya mae nambar lay po pay par");
 
@@ -274,10 +282,52 @@
             }
         }
 
+        // Related Videos အတွက် ဗီဒီယိုများကို သီးသန့်ဆွဲယူပေးမည့် Function
+        async function fetchRelatedVideos(p) {
+            if (isRelatedLoading) return;
+            isRelatedLoading = true;
+            document.getElementById('relatedLoadingStatus').style.display = 'block';
+
+            try {
+                // လက်ရှိစာလုံး သို့မဟုတ် random စာလုံးဖြင့် ဆက်စပ်ဗီဒီယို ရှာပေးသည်
+                const randomKeyword = keywordsPool[Math.floor(Math.random() * keywordsPool.length)];
+                const res = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(randomKeyword)}&per_page=12&page=${p}&thumbsize=big`);
+                const data = await res.json();
+                const grid = document.getElementById('relatedContainer');
+                
+                if (data && data.videos && data.videos.length > 0) {
+                    data.videos.forEach(v => {
+                        const div = document.createElement('div');
+                        div.className = 'video-item';
+                        div.onclick = () => play(v.embed, v.title);
+                        div.innerHTML = `
+                            <img src="${v.default_thumb.src}" class="thumb" loading="lazy">
+                            <div class="details">
+                                <div class="title">${v.title}</div>
+                                <div class="views-count">👁️ ${parseInt(v.views).toLocaleString()} views</div>
+                            </div>
+                        `;
+                        grid.appendChild(div);
+                    });
+                }
+            } catch (error) {
+                console.error("Related Error:", error);
+            } finally {
+                document.getElementById('relatedLoadingStatus').style.display = 'none';
+                isRelatedLoading = false;
+            }
+        }
+
         function play(url, title) {
             document.getElementById('theater').style.display = 'block';
             document.getElementById('frame').src = url;
             document.getElementById('vTitle').innerText = title;
+            
+            // Related Container ကို ရှင်းထုတ်ပြီး ဗီဒီယိုအသစ်တွေ စတင်ခေါ်ယူသည်
+            document.getElementById('relatedContainer').innerHTML = '';
+            relatedPage = Math.floor(Math.random() * 5) + 1;
+            fetchRelatedVideos(relatedPage);
+
             document.getElementById('theater').scrollTop = 0;
             document.body.style.overflow = 'hidden'; 
         }
@@ -304,10 +354,22 @@
             setRandomFeed();
         }
 
+        // Main Home Screen အတွက် Infinite Scroll
         window.onscroll = () => {
             if (document.getElementById('theater').style.display !== 'block') {
                 if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 600) {
                     if(!isLoading) { page++; fetchVideos(page); }
+                }
+            }
+        };
+
+        // Related Videos အတွက် Theater Page အတွင်း Infinite Scroll ဆွဲနိုင်ရန် ထည့်သွင်းထားမှု
+        document.getElementById('theater').onscroll = function() {
+            const theater = document.getElementById('theater');
+            if (theater.scrollTop + theater.clientHeight >= theater.scrollHeight - 400) {
+                if (!isRelatedLoading) {
+                    relatedPage++;
+                    fetchRelatedVideos(relatedPage);
                 }
             }
         };
